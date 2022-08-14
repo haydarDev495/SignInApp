@@ -86,8 +86,8 @@
                                             </button>
                                         </subviews>
                                     </stackView>
-                                    <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="15N-ly-vmR">
-                                        <rect key="frame" x="25" y="111" width="364" height="38"/>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="15N-ly-vmR">
+                                        <rect key="frame" x="25" y="113" width="364" height="38"/>
                                         <color key="backgroundColor" systemColor="systemGreenColor"/>
                                         <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <state key="normal" title="Button"/>
@@ -99,6 +99,9 @@
                                                 <integer key="value" value="15"/>
                                             </userDefinedRuntimeAttribute>
                                         </userDefinedRuntimeAttributes>
+                                        <connections>
+                                            <action selector="signInButtonAction" destination="BYZ-38-t0r" eventType="touchUpInside" id="lhT-cG-g8z"/>
+                                        </connections>
                                     </button>
                                 </subviews>
                                 <color key="backgroundColor" white="0.33333333333333331" alpha="0.49031036579056292" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -129,7 +132,7 @@
                                 </userDefinedRuntimeAttributes>
                             </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="OR" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aPP-nd-kG1">
-                                <rect key="frame" x="195.5" y="617" width="23.5" height="20.5"/>
+                                <rect key="frame" x="195.5" y="616.5" width="23.5" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
@@ -213,7 +216,6 @@
                             <constraint firstItem="Akb-g2-kmN" firstAttribute="centerX" secondItem="aPP-nd-kG1" secondAttribute="centerX" id="4bo-Pd-mnc"/>
                             <constraint firstItem="Akb-g2-kmN" firstAttribute="top" secondItem="aPP-nd-kG1" secondAttribute="bottom" constant="38.5" id="BZP-Fy-SpW"/>
                             <constraint firstItem="a9w-gu-ZyT" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="Dm5-G3-o9E"/>
-                            <constraint firstItem="aPP-nd-kG1" firstAttribute="leading" secondItem="bpV-JS-eRo" secondAttribute="trailing" constant="5" id="Dpa-JM-wcQ"/>
                             <constraint firstItem="PrM-S2-1vu" firstAttribute="centerY" secondItem="aPP-nd-kG1" secondAttribute="centerY" id="FRM-Yh-N3q"/>
                             <constraint firstItem="Hdy-ey-4pi" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="GCM-M1-1V1"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="a9w-gu-ZyT" secondAttribute="trailing" id="K2N-al-aly"/>
@@ -222,6 +224,8 @@
                             <constraint firstItem="aPP-nd-kG1" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="TkU-i7-WU4"/>
                             <constraint firstItem="Hdy-ey-4pi" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="WdA-I6-49b"/>
                             <constraint firstItem="bpV-JS-eRo" firstAttribute="centerY" secondItem="aPP-nd-kG1" secondAttribute="centerY" id="Zah-My-l9Y"/>
+                            <constraint firstItem="bpV-JS-eRo" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="45.5" id="oP0-BG-eYt"/>
+                            <constraint firstItem="Akb-g2-kmN" firstAttribute="top" secondItem="bpV-JS-eRo" secondAttribute="bottom" constant="48.5" id="sN7-JS-IPJ"/>
                             <constraint firstItem="aPP-nd-kG1" firstAttribute="centerY" secondItem="a9w-gu-ZyT" secondAttribute="centerY" multiplier="1.4" id="uOH-Vr-7MQ"/>
                             <constraint firstItem="PrM-S2-1vu" firstAttribute="leading" secondItem="aPP-nd-kG1" secondAttribute="trailing" constant="5" id="zBZ-Ve-HRz"/>
                         </constraints>
@@ -230,6 +234,7 @@
                     <connections>
                         <outlet property="emailTextField" destination="x7W-tO-fsP" id="NUB-Fv-cmc"/>
                         <outlet property="passwordTextField" destination="iqU-SE-AdZ" id="DHT-ep-Xl2"/>
+                        <segue destination="p6Z-6Z-vRF" kind="show" identifier="goToMain" id="NHM-bz-eg1"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -244,7 +249,17 @@
                 </viewControllerPlaceholder>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="nLK-e7-BtK" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2167" y="-5"/>
+            <point key="canvasLocation" x="2239" y="12"/>
+        </scene>
+        <!--Main-->
+        <scene sceneID="Ern-Rp-PRi">
+            <objects>
+                <viewControllerPlaceholder storyboardName="Main" id="p6Z-6Z-vRF" sceneMemberID="viewController">
+                    <navigationItem key="navigationItem" id="aYp-JD-ue8"/>
+                </viewControllerPlaceholder>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="nHQ-L6-Cw4" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2228" y="-72"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="OjX-XA-tjb">

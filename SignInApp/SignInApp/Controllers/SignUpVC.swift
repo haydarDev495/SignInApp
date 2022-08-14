@@ -27,6 +27,7 @@ class SignUpVC: UIViewController {
     @IBOutlet weak var errorConfirmPassword: UILabel!
     @IBOutlet weak var confirmPasswordTF: UITextField!
     
+    @IBOutlet weak var scrollView: UIScrollView!
     // password indicator
     @IBOutlet var indacotarViews: [UIView]!
     
@@ -39,26 +40,18 @@ class SignUpVC: UIViewController {
         super.viewDidLoad()
         hideNavigationBar()
         hideKeyboardWhenTappedAround()
+        startKeyboardObserver()
   }
-    private func updateContinueButtonState() {
-        continueButton.isEnabled = isValidEmail && isConfirmPassword && passwordStrength != .veryWeak
-    }
     
     @IBAction func emailTFAction(_ sender: UITextField) {
         if let email = sender.text,
            !email.isEmpty,
            VerificationService.isValidEmail(email: email){
             isValidEmail = true
-            // errorEmailLabel.isHidden = true если бы написали так было бы правильно ?
         } else {
             isValidEmail = false
-            // errorEmailLabel.isHidden = false если бы написали так было бы правильно ?
         }
         errorEmailLabel.isHidden = isValidEmail
-    }
-    
-    @IBAction func nameTFAction(_ sender: UITextField) {
-        
     }
     
     @IBAction func passwordTFAction(_ sender: UITextField) {
@@ -90,12 +83,17 @@ class SignUpVC: UIViewController {
         navigationController?.popToRootViewController(animated: true)
     }
     
+    
     @IBAction func continueButtonAction(_ sender: Any) {
-        if let email = emailTextField.text,
+        if let mail = emailTextField.text,
            let password = enterPasswordTF.text {
-            let userModel = UserModel(name: enterNameTextfield.text, mail: email, password: password)
+            let userModel = UserModel(name: enterNameTextfield.text, mail: mail, password: password)
             performSegue(withIdentifier: "goToCodeVerificationVC", sender: userModel)
         }
+    }
+    
+    private func updateContinueButtonState() {
+        continueButton.isEnabled = isValidEmail && isConfirmPassword && passwordStrength != .veryWeak
     }
     
     private func hideNavigationBar() {
@@ -114,14 +112,33 @@ class SignUpVC: UIViewController {
     }
     
 
+    private func startKeyboardObserver() {
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow),
+                                               name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide),
+                                               name: UIResponder.keyboardWillHideNotification, object: nil)
+    }
+    
+    @objc private func keyboardWillShow(notification: Notification) {
+        guard let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue else {
+            return
+        }
+        let contentInsets = UIEdgeInsets(top: 0.0, left: 0.0, bottom: keyboardSize.height, right: 0.0)
+        scrollView.contentInset = contentInsets
+        scrollView.scrollIndicatorInsets = contentInsets
+    }
+    
+    @objc private func keyboardWillHide() {
+        let contentInsets = UIEdgeInsets(top: 0.0, left: 0.0, bottom: 0.0, right: 0.0)
+        scrollView.contentInset = contentInsets
+        scrollView.scrollIndicatorInsets = contentInsets
+    }
+    
     // MARK: - Navigation
-
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-
-        if let codeVerificationVC = segue.destination as? CodeVerificatonVC,
+        if let codeVerVC = segue.destination as? CodeVerVC,
            let userModel = sender as? UserModel{
-            codeVerificationVC.userModel = userModel
+            codeVerVC.userModel = userModel
         }
     }
-
 }
